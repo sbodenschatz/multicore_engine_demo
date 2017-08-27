@@ -12,4 +12,6 @@ endif()
 #make_build_scripts_project(.gitlab-ci.yml Doxyfile .clang-format)
 get_version_info()
 
-add_subdirectory(engine)
+add_subdirectory(multicore_engine)
+add_subdirectory(multicore_engine_demo)
+add_subdirectory(multicore_engine_demo_assets)
