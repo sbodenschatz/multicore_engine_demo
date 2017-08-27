@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.7)
 project (multicore_engine_demo)
 
-include(engine/CMakeUtils.txt)
+include(multicore_engine/CMakeUtils.txt)
 
 enable_testing()
 
