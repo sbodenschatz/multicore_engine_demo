@@ -3,6 +3,7 @@ variables:
 
 stages:
   - build
+  - auxiliary
   - package
 
 .cache-paths-spec: &cache-paths
