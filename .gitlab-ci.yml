@@ -41,9 +41,8 @@ stages:
     - cmake -E make_directory build
     - cd build
     - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} ..
-    - cmake --build . -- -j ${BUILD_CONCURRENCY}
+    - cmake --build . --target mce_demo -- -j ${BUILD_CONCURRENCY}
     - export LD_LIBRARY_PATH=/usr/local/lib/${BUILD_COMPILER_NAME}-${BUILD_TYPE,,}/
-    - ctest --output-on-failure
     - cd ..
     - cmake -E make_directory ${BUILD_COMPILER_NAME}
     - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
@@ -56,8 +55,7 @@ stages:
     - cmake -E make_directory build
     - cd build
     - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
-    - cmake --build . -- -j %BUILD_CONCURRENCY%
-    - ctest --output-on-failure
+    - cmake --build . --target mce_demo -- -j %BUILD_CONCURRENCY%
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
@@ -70,8 +68,7 @@ stages:
     - cmake -E make_directory build
     - cd build
     - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Visual Studio 15 2017 Win64" ..
-    - cmake --build . --config %BUILD_TYPE% -- /m:%BUILD_CONCURRENCY%
-    - ctest -C %BUILD_TYPE% --output-on-failure
+    - cmake --build . --target mce_demo --config %BUILD_TYPE% -- /m:%BUILD_CONCURRENCY%
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
