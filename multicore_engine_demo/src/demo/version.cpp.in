@@ -1,0 +1,25 @@
+/*
+ * Multi-Core Engine project
+ * File /multicore_engine_demo/include/mce/demo/version.cpp
+ * Copyright 2017 by Stefan Bodenschatz
+ */
+
+#include <mce/demo/version.hpp>
+
+namespace mce {
+namespace demo {
+
+std::string get_build_version_string() {
+	return "${BUILD_VERSION_STRING}";
+}
+
+std::string get_build_version() {
+	return "${BUILD_VERSION}";
+}
+
+std::string get_build_branch() {
+	return "${BUILD_BRANCH}";
+}
+
+} /* namespace demo */
+} /* namespace mce */

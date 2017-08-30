@@ -2,7 +2,8 @@ cmake_minimum_required (VERSION 3.7)
 project(multicore_engine_demo)
 file(GLOB_RECURSE DEMO_SRC "src/*.cpp")
 file(GLOB_RECURSE DEMO_HEADERS "include/*.hpp")
-add_executable(mce_demo ${DEMO_SRC} ${DEMO_HEADERS})
+configure_file(src/demo/version.cpp.in src/demo/version.cpp)
+add_executable(mce_demo ${DEMO_SRC} ${DEMO_HEADERS} ${CMAKE_CURRENT_BINARY_DIR}/src/demo/version.cpp src/demo/version.cpp.in)
 target_include_directories(mce_demo PUBLIC
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:include>
