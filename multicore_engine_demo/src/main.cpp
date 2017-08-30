@@ -1,7 +1,7 @@
 /*
  * Multi-Core Engine project
  * File /mutlicore_engine_demo/src/main.cpp
- * Copyright 2015 by Stefan Bodenschatz
+ * Copyright 2015-2017 by Stefan Bodenschatz
  */
 
 #include <mce/core/engine.hpp>
