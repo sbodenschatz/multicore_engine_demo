@@ -15,4 +15,6 @@ get_version_info()
 
 add_subdirectory(multicore_engine)
 add_subdirectory(multicore_engine_demo)
-add_subdirectory(multicore_engine_demo_assets)
+if(NOT STATIC_ANALYSIS_ONLY)
+	add_subdirectory(multicore_engine_demo_assets)
+endif()

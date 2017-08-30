@@ -94,17 +94,6 @@ stages:
         - checksums.txt
         - licenses
 
-gcc-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "g++"
-        BUILD_C_COMPILER: "gcc"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "gcc"
-        BUILD_SANITIZE: "YES"
-    tags:
-    - cpp
-    <<: *linux-build-task
-
 gcc-release-build:
     variables:
         BUILD_CXX_COMPILER: "g++"
@@ -117,18 +106,6 @@ gcc-release-build:
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
 
-clang-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "clang++"
-        BUILD_C_COMPILER: "clang"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "clang"
-        BUILD_SANITIZE: "YES"
-        ASAN_OPTIONS: "detect_leaks=0"
-    tags:
-    - cpp
-    <<: *linux-build-task
-
 clang-release-build:
     variables:
         BUILD_CXX_COMPILER: "clang++"
@@ -140,14 +117,6 @@ clang-release-build:
     - cpp
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
-
-msvc-debug-build:
-    variables:
-        BUILD_COMPILER_NAME: "msvc"
-        BUILD_TYPE: "Debug"
-    tags:
-    - win-cpp
-    <<: *msbuild-build-task
 
 msvc-release-build:
     variables:
@@ -172,16 +141,6 @@ msvc-release-build-tags:
     <<: *msbuild-build-task
     <<: *artifact-spec-build-windows
 
-mingw-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "g++"
-        BUILD_C_COMPILER: "gcc"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "mingw"
-    tags:
-    - win-cpp
-    <<: *mingw-build-task
-
 mingw-release-build:
     variables:
         BUILD_CXX_COMPILER: "g++"
@@ -192,6 +151,25 @@ mingw-release-build:
     - win-cpp
     <<: *mingw-build-task
     <<: *artifact-spec-build-windows
+
+cpp-check:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - ./run_cppcheck.sh
+    tags:
+    - cpp
+
+scan-build:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - mkdir -p build && cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
+    - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
+    tags:
+    - cpp
+    <<: *linux-cache-spec
 
 license-pack-windows:
     dependencies: []
