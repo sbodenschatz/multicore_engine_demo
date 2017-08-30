@@ -94,17 +94,6 @@ stages:
         - checksums.txt
         - licenses
 
-gcc-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "g++"
-        BUILD_C_COMPILER: "gcc"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "gcc"
-        BUILD_SANITIZE: "YES"
-    tags:
-    - cpp
-    <<: *linux-build-task
-
 gcc-release-build:
     variables:
         BUILD_CXX_COMPILER: "g++"
@@ -117,18 +106,6 @@ gcc-release-build:
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
 
-clang-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "clang++"
-        BUILD_C_COMPILER: "clang"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "clang"
-        BUILD_SANITIZE: "YES"
-        ASAN_OPTIONS: "detect_leaks=0"
-    tags:
-    - cpp
-    <<: *linux-build-task
-
 clang-release-build:
     variables:
         BUILD_CXX_COMPILER: "clang++"
@@ -140,14 +117,6 @@ clang-release-build:
     - cpp
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
-
-msvc-debug-build:
-    variables:
-        BUILD_COMPILER_NAME: "msvc"
-        BUILD_TYPE: "Debug"
-    tags:
-    - win-cpp
-    <<: *msbuild-build-task
 
 msvc-release-build:
     variables:
@@ -171,16 +140,6 @@ msvc-release-build-tags:
     - tags
     <<: *msbuild-build-task
     <<: *artifact-spec-build-windows
-
-mingw-debug-build:
-    variables:
-        BUILD_CXX_COMPILER: "g++"
-        BUILD_C_COMPILER: "gcc"
-        BUILD_TYPE: "Debug"
-        BUILD_COMPILER_NAME: "mingw"
-    tags:
-    - win-cpp
-    <<: *mingw-build-task
 
 mingw-release-build:
     variables:
