@@ -3,6 +3,10 @@ project(multicore_engine_demo)
 file(GLOB_RECURSE DEMO_SRC "src/*.cpp")
 file(GLOB_RECURSE DEMO_HEADERS "include/*.hpp")
 add_executable(mce_demo ${DEMO_SRC} ${DEMO_HEADERS})
+target_include_directories(mce_demo PUBLIC
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+		$<INSTALL_INTERFACE:include>
+	)
 target_link_libraries(mce_demo 
 		mce_core
 		mce_renderer

@@ -169,7 +169,7 @@ scan-build:
     - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
     tags:
     - cpp
-    <<: *linux-cache-spec    
+    <<: *linux-cache-spec
 
 license-pack-windows:
     dependencies: []
