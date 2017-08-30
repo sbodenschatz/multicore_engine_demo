@@ -196,6 +196,25 @@ mingw-release-build:
     <<: *mingw-build-task
     <<: *artifact-spec-build-windows
 
+cpp-check:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - ./run_cppcheck.sh
+    tags:
+    - cpp
+
+scan-build:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - mkdir -p build && cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
+    - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
+    tags:
+    - cpp
+    <<: *linux-cache-spec    
+
 license-pack-windows:
     dependencies: []
     stage: auxiliary
