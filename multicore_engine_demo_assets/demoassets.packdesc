@@ -7,4 +7,6 @@ models zip(9) {
 shaders zip(9) {
 	"shaders.lup";
 	"shaders.lum";
+	"../multicore_engine/multicore_engine_assets/shaders.lum"->"engine/shaders.lum";
+	"../multicore_engine/multicore_engine_assets/shaders.lup"->"engine/shaders.lup";
 }
