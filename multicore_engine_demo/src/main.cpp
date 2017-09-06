@@ -36,7 +36,8 @@ int main(int, char* argv[]) {
 	// res->value({1024, 768});
 	auto ws = eng.add_system<mce::core::window_system>("Multicore Engine Demo");
 	auto gs = eng.add_system<mce::graphics::graphics_system>(*ws);
-	eng.add_system<mce::rendering::renderer_system>(*gs);
+	auto rs = eng.add_system<mce::rendering::renderer_system>(*gs);
+	rs->material_manager().load_material_library("materials/test");
 	eng.game_state_machine().enter<mce::demo::test_state>();
 
 	eng.run();
