@@ -1,0 +1,13 @@
+camera {
+	camera{}
+}
+
+cube {
+	static_model {
+		model_name = "models/cube";
+	}
+}
+
+camera camera (0,0,0),();
+
+cube cube (0,0,5),();
