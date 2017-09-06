@@ -31,6 +31,7 @@ int main(int, char* argv[]) {
 	eng.asset_manager().add_asset_loader(loader);
 	eng.asset_manager().start_pin_load_unit("engine/shaders");
 	eng.asset_manager().start_pin_load_unit("models_geo");
+	eng.asset_manager().start_pin_load_unit("entities");
 
 	// auto res = eng.config_store().resolve<glm::ivec2>("resolution", {800, 600});
 	// res->value({1024, 768});
