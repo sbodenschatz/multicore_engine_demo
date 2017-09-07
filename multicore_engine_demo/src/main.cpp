@@ -5,6 +5,7 @@
  */
 
 #include <boost/filesystem.hpp>
+#include <iostream>
 #include <mce/asset/asset_manager.hpp>
 #include <mce/asset/load_unit_asset_loader.hpp>
 #include <mce/asset/pack_file_reader.hpp>
