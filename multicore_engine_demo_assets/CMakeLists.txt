@@ -26,4 +26,4 @@ add_custom_target(mce_demo_assets_models ALL SOURCES ${MODEL_OBJS} DEPENDS ${MOD
 add_custom_target(mce_demo_assets_units ALL SOURCES ${LOAD_UNIT_DESCS} DEPENDS ${LOAD_UNIT_METAS} ${LOAD_UNIT_PAYLOADS})
 add_custom_target(mce_demo_assets_packs ALL SOURCES ${PACK_DESCS} DEPENDS ${PACK_FILES})
 add_dependencies(mce_demo_assets_units mce_demo_assets_compile mce_demo_assets_models)
-add_dependencies(mce_demo_assets_packs mce_demo_assets_units)
+add_dependencies(mce_demo_assets_packs mce_demo_assets_units mce_assets_units)

@@ -46,7 +46,8 @@ stages:
     - cd ..
     - cmake -E make_directory ${BUILD_COMPILER_NAME}
     - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
-    - cmake -E copy build/multicore_engine_demo_assets/demoassets.pack ${BUILD_COMPILER_NAME}/demoassets.pack
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
+    - glslangValidator -v
 
 .mingw-build-template: &mingw-build-task
     stage: build
@@ -59,7 +60,8 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
-    - cmake -E copy build/multicore_engine_demo_assets/demoassets.pack %BUILD_COMPILER_NAME%/demoassets.pack
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - glslangValidator -v
 
 .msbuild-build-template: &msbuild-build-task
     stage: build
@@ -72,8 +74,10 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
-    - cmake -E copy build/multicore_engine_demo_assets/demoassets.pack %BUILD_COMPILER_NAME%/demoassets.pack
-    - cmake -E remove_directory build/multicore_engine_assets
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    #- cmake -E remove_directory build/multicore_engine_assets
+    #- cmake -E remove_directory build/multicore_engine_demo_assets
+    - glslangValidator -v
 
 .package-task-template: &package-task
     stage: package
