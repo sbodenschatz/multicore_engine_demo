@@ -12,12 +12,12 @@
 #include <mce/config/config_store.hpp>
 #include <mce/core/engine.hpp>
 #include <mce/core/game_state_machine.hpp>
-#include <mce/core/window_system.hpp>
 #include <mce/demo/test_state.hpp>
 #include <mce/demo/version.hpp>
 #include <mce/graphics/graphics_system.hpp>
 #include <mce/input/input_system.hpp>
 #include <mce/rendering/renderer_system.hpp>
+#include <mce/windowing/window_system.hpp>
 
 int main(int, char* argv[]) {
 	try {
@@ -40,7 +40,7 @@ int main(int, char* argv[]) {
 
 		// auto res = eng.config_store().resolve<glm::ivec2>("resolution", {800, 600});
 		// res->value({1024, 768});
-		auto ws = eng.add_system<mce::core::window_system>("Multicore Engine Demo");
+		auto ws = eng.add_system<mce::windowing::window_system>("Multicore Engine Demo");
 		auto gs = eng.add_system<mce::graphics::graphics_system>(*ws);
 		auto rs = eng.add_system<mce::rendering::renderer_system>(*gs);
 		eng.add_system<mce::input::input_system>(*ws);
