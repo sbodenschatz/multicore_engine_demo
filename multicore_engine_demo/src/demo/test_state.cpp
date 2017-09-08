@@ -7,6 +7,8 @@
 #include <cassert>
 #include <mce/asset/asset_manager.hpp>
 #include <mce/demo/test_state.hpp>
+#include <mce/input/input_state.hpp>
+#include <mce/input/input_system.hpp>
 #include <mce/rendering/renderer_state.hpp>
 #include <mce/rendering/renderer_system.hpp>
 
@@ -19,6 +21,9 @@ test_state::test_state(mce::core::engine* engine, mce::core::game_state_machine*
 	auto renderer = engine->get_system<mce::rendering::renderer_system>();
 	assert(renderer);
 	add_system_state<mce::rendering::renderer_state>(renderer);
+	auto input_sys = engine->get_system<mce::input::input_system>();
+	assert(input_sys);
+	add_system_state<mce::input::input_state>(input_sys);
 	auto ent_asset = engine->asset_manager().load_asset_sync("entities/demo.etf");
 	entity_manager().load_entities_from_text_file(ent_asset);
 }
