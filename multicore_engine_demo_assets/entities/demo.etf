@@ -1,5 +1,6 @@
 camera {
 	camera{}
+	first_person_flyer{}
 }
 
 cube {
@@ -8,14 +9,22 @@ cube {
 	}
 }
 
+cone {
+	static_model {
+		model_name = "models/cone";
+	}
+}
+
 camera camera (0,0,0),();
 
-cube (0,0,-5),();
-cube (-2,-2,-5),();
-cube (-2,0,-5),();
-cube (-2,2,-5),();
-cube (0,-2,-5),();
-cube (0,2,-5),();
-cube (2,-2,-5),();
-cube (2,0,-5),();
-cube (2,2,-5),();
+cone (0,0,-10),();
+cube (-4,-4,-10),();
+cube (-4,0,-10),();
+cube (-4,4,-10),();
+cube (0,-4,-10),();
+cube (0,4,-10),();
+cube (4,-4,-10),();
+cube (4,0,-10),();
+cube (4,4,-10),();
+
+cone (0,0,10),();
