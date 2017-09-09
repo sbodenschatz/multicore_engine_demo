@@ -1,6 +1,8 @@
 camera {
 	camera{}
-	first_person_flyer{}
+	first_person_flyer{
+		inverted_y_axis = 0;
+	}
 }
 
 cube {
