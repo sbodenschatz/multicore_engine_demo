@@ -10,6 +10,7 @@ target_include_directories(mce_demo PUBLIC
 	)
 target_link_libraries(mce_demo 
 		mce_core
+		mce_headed
 		mce_renderer
 		deps.Boost.ProgramOptions
 	)
