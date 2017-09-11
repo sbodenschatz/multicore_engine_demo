@@ -17,6 +17,7 @@
 #include <mce/graphics/graphics_system.hpp>
 #include <mce/input/input_system.hpp>
 #include <mce/rendering/renderer_system.hpp>
+#include <mce/simulation/actuator_system.hpp>
 #include <mce/windowing/window_system.hpp>
 
 int main(int, char* argv[]) {
@@ -44,6 +45,7 @@ int main(int, char* argv[]) {
 		auto gs = eng.add_system<mce::graphics::graphics_system>(*ws);
 		auto rs = eng.add_system<mce::rendering::renderer_system>(*gs);
 		eng.add_system<mce::input::input_system>(*ws);
+		eng.add_system<mce::simulation::actuator_system>();
 		rs->material_manager().load_material_library("materials/test");
 		eng.game_state_machine().enter<mce::demo::test_state>();
 
