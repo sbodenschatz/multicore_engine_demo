@@ -9,6 +9,9 @@ cube {
 	static_model {
 		model_name = "models/cube";
 	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
 }
 
 cone {

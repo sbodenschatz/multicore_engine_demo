@@ -19,6 +19,7 @@
 #include <mce/rendering/renderer_system.hpp>
 #include <mce/simulation/actuator_system.hpp>
 #include <mce/windowing/window_system.hpp>
+#include <random>
 
 int main(int, char* argv[]) {
 	try {
@@ -45,7 +46,27 @@ int main(int, char* argv[]) {
 		auto gs = eng.add_system<mce::graphics::graphics_system>(*ws);
 		auto rs = eng.add_system<mce::rendering::renderer_system>(*gs);
 		eng.add_system<mce::input::input_system>(*ws);
-		eng.add_system<mce::simulation::actuator_system>();
+		auto as = eng.add_system<mce::simulation::actuator_system>();
+		struct random_rotate {
+			glm::vec3 angular_velocity;
+			random_rotate() {
+				std::random_device r;
+				std::default_random_engine e(r());
+				std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
+				do {
+					angular_velocity = {dist(e), dist(e), dist(e)};
+				} while(dot(angular_velocity, angular_velocity) < 0.0001f);
+				angular_velocity = normalize(angular_velocity);
+			}
+			random_rotate(const random_rotate&) : random_rotate() {}
+			void operator()(const mce::core::frame_time& frame_time, mce::entity::entity& ent) {
+				glm::quat rot_quat = {0.0f, angular_velocity};
+				glm::quat orientation_derivative = 0.5f * (rot_quat * ent.orientation());
+				ent.orientation(
+						glm::normalize(ent.orientation() + orientation_derivative * frame_time.delta_t));
+			}
+		};
+		as->set_movement_pattern("random_rotate", random_rotate());
 		rs->material_manager().load_material_library("materials/test");
 		eng.game_state_machine().enter<mce::demo::test_state>();
 
