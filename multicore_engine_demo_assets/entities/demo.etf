@@ -25,6 +25,12 @@ cone {
 	}
 }
 
+sphere{
+	static_model{
+		model_name = "models/sphere";
+	}
+}
+
 camera camera (0,0,0),();
 
 cone (0,0,-10),();
@@ -38,3 +44,5 @@ cube (4,0,-10),();
 cube (4,4,-10),();
 
 cone (0,0,10),();
+
+sphere (0,0,0),();

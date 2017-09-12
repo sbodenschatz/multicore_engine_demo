@@ -3,4 +3,5 @@ models_geo{
 	"models/cone.model";
 	"materials/test.matlib"d;
 	"textures/test.dds"d;
+	"models/sphere.model";
 }
