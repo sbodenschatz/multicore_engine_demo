@@ -18,6 +18,11 @@ cone {
 	static_model {
 		model_name = "models/cone";
 	}
+	actuator{
+		movement_pattern = "orbit";
+		speed = 50.0;
+		radius = 5.0;
+	}
 }
 
 camera camera (0,0,0),();
