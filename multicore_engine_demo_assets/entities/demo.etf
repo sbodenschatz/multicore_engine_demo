@@ -9,11 +9,19 @@ cube {
 	static_model {
 		model_name = "models/cube";
 	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
 }
 
 cone {
 	static_model {
 		model_name = "models/cone";
+	}
+	actuator{
+		movement_pattern = "orbit";
+		speed = 50.0;
+		radius = 5.0;
 	}
 }
 
