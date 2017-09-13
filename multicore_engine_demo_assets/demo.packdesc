@@ -1,4 +1,4 @@
-models zip(0) {
+models zip(3) {
 	"models_col.lum";
 	"models_geo.lum";
 	"models_col.lup";
