@@ -36,9 +36,18 @@ int main(int, char* argv[]) {
 						  ((boost::filesystem::path(argv[0]).parent_path().parent_path() /
 							"multicore_engine_demo_assets") /
 						   "demo.pack")
+								  .string()},
+						 {std::make_unique<mce::asset::pack_file_reader>(), "engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(),
+						  "../multicore_engine/multicore_engine_assets/engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(),
+						  (((boost::filesystem::path(argv[0]).parent_path().parent_path() /
+							 "multicore_engine") /
+							"multicore_engine_assets") /
+						   "engine.pack")
 								  .string()}}));
 		eng.asset_manager().add_asset_loader(loader);
-		eng.asset_manager().start_pin_load_unit("engine/shaders");
+		eng.asset_manager().start_pin_load_unit("shaders");
 		eng.asset_manager().start_pin_load_unit("models_geo");
 		eng.asset_manager().start_pin_load_unit("entities");
 
