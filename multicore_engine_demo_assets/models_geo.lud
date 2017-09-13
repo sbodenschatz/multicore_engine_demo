@@ -4,4 +4,8 @@ models_geo{
 	"materials/test.matlib"d;
 	"test_textures/test.dds"d -> "textures/test.dds";
 	"models/sphere.model";
+	"textures/rustediron-streaks_albedo.dds"d;
+	"textures/rustediron-streaks_emission.dds"d;
+	"textures/rustediron-streaks_material.dds"d;
+	"textures/rustediron-streaks_normal.dds"d;
 }
