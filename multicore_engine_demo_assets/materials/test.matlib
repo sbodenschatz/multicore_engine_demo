@@ -9,6 +9,12 @@
 		"albedo":"textures/rustediron-streaks_albedo",
 		"normal":"textures/rustediron-streaks_normal",
 		"material":"textures/rustediron-streaks_material",
-		"emission":"textures/rustediron-streaks_emission"	
+		"emission":"textures/rustediron-streaks_emission"
+	},
+	"octostone":{		
+		"albedo":"textures/octostone_albedo",
+		"normal":"textures/octostone_normal",
+		"material":"textures/octostone_material",
+		"emission":"textures/octostone_emission"
 	}
 }

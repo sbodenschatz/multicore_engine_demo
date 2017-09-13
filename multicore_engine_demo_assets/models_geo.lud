@@ -8,4 +8,8 @@ models_geo{
 	"textures/rustediron-streaks_emission.dds"d;
 	"textures/rustediron-streaks_material.dds"d;
 	"textures/rustediron-streaks_normal.dds"d;
+	"textures/octostone_albedo.dds"d;
+	"textures/octostone_emission.dds"d;
+	"textures/octostone_material.dds"d;
+	"textures/octostone_normal.dds"d;
 }
