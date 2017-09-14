@@ -42,7 +42,7 @@ public:
 	}
 };
 
-static random rnd;
+static class random rnd;
 
 int main(int, char* argv[]) {
 	try {
