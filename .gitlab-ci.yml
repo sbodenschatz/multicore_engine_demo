@@ -86,15 +86,21 @@ stages:
     script:
     - sha1sum -b gcc/* clang/* msvc/* mingw/* > checksums.txt
     - cat checksums.txt | sort
+    - mv mingw/demo.pack demo.pack
+    - mv gcc/demo demo-gcc
+    - mv clang/demo demo-clang
+    - mv mingw/demo.exe demo-gcc.exe
+    - mv msvc/demo.exe demo-msvc.exe
     tags:
     - package
     artifacts: &package-artifact-spec
         name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
-        - gcc
-        - clang
-        - msvc
-        - mingw
+        - demo.pack
+        - demo-gcc
+        - demo-clang
+        - demo-msvc.exe
+        - demo-mingw.exe
         - checksums.txt
         - licenses
 
