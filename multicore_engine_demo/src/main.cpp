@@ -30,6 +30,7 @@ int main(int, char* argv[]) {
 		auto loader =
 				std::make_shared<mce::asset::load_unit_asset_loader>(std::vector<mce::asset::path_prefix>(
 						{{std::make_unique<mce::asset::pack_file_reader>(), "demo.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(), "../demo.pack"},
 						 {std::make_unique<mce::asset::pack_file_reader>(),
 						  "../multicore_engine_demo_assets/demo.pack"},
 						 {std::make_unique<mce::asset::pack_file_reader>(),
@@ -38,6 +39,7 @@ int main(int, char* argv[]) {
 						   "demo.pack")
 								  .string()},
 						 {std::make_unique<mce::asset::pack_file_reader>(), "engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(), "../engine.pack"},
 						 {std::make_unique<mce::asset::pack_file_reader>(),
 						  "../multicore_engine/multicore_engine_assets/engine.pack"},
 						 {std::make_unique<mce::asset::pack_file_reader>(),
