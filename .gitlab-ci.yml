@@ -60,6 +60,7 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
     - glslangValidator -v
 
@@ -74,6 +75,7 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
     #- cmake -E remove_directory build/multicore_engine_assets
     #- cmake -E remove_directory build/multicore_engine_demo_assets
@@ -87,20 +89,17 @@ stages:
     - sha1sum -b gcc/* clang/* msvc/* mingw/* > checksums.txt
     - cat checksums.txt | sort
     - mv mingw/demo.pack demo.pack
-    - mv gcc/demo demo-gcc
-    - mv clang/demo demo-clang
-    - mv mingw/demo.exe demo-mingw.exe
-    - mv msvc/demo.exe demo-msvc.exe
+    - rm msvc/*.pack gcc/*.pack clang/*.pack
     tags:
     - package
     artifacts: &package-artifact-spec
         name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
         - demo.pack
-        - demo-gcc
-        - demo-clang
-        - demo-msvc.exe
-        - demo-mingw.exe
+        - gcc
+        - clang
+        - msvc
+        - mingw
         - checksums.txt
         - licenses
 
