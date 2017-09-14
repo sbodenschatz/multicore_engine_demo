@@ -1,10 +1,4 @@
 {
-	"test":{
-		"albedo":"textures/test",
-		"normal":"textures/test",
-		"material":"textures/test",
-		"emission":"textures/test"
-	},
 	"rustediron-streaks":{
 		"albedo":"textures/rustediron-streaks_albedo",
 		"normal":"textures/rustediron-streaks_normal",
