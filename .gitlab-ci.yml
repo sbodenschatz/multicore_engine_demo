@@ -93,7 +93,7 @@ stages:
     - mv mingw/engine.pack engine.pack
     - mv gcc/demo demo-gcc
     - mv clang/demo demo-clang
-    - mv mingw/demo.exe demo-gcc.exe
+    - mv mingw/demo.exe demo-mingw.exe
     - mv msvc/demo.exe demo-msvc.exe
     tags:
     - package
