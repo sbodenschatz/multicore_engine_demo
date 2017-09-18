@@ -22,5 +22,11 @@
 		"normal":"textures/greasy-pan-2_normal",
 		"material":"textures/greasy-pan-2_material",
 		"emission":"textures/black"
+	},
+	"copper-rock1":{	
+		"albedo":"textures/copper-rock1_albedo",
+		"normal":"textures/copper-rock1_normal",
+		"material":"textures/copper-rock1_material",
+		"emission":"textures/black"
 	}
 }

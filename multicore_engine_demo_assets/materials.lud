@@ -14,4 +14,7 @@ materials{
 	"textures/greasy-pan-2_albedo.dds"d;
 	"textures/greasy-pan-2_material.dds"d;
 	"textures/greasy-pan-2_normal.dds"d;
+	"textures/copper-rock1_albedo.dds"d;
+	"textures/copper-rock1_material.dds"d;
+	"textures/copper-rock1_normal.dds"d;
 }
