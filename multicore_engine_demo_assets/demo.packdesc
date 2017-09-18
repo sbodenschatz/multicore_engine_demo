@@ -1,10 +1,14 @@
-models zip(3) {
+models zip(7) {
 	"models_col.lum";
 	"models_geo.lum";
 	"models_col.lup";
 	"models_geo.lup";
 }
-entities zip(9){
+entities zip(9) {
 	"entities.lup";
 	"entities.lum";
+}
+materials zip(4) {
+	"materials.lum";
+	"materials.lup";
 }

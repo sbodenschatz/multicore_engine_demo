@@ -73,6 +73,7 @@ int main(int, char* argv[]) {
 		eng.asset_manager().start_pin_load_unit("shaders");
 		eng.asset_manager().start_pin_load_unit("models_geo");
 		eng.asset_manager().start_pin_load_unit("entities");
+		eng.asset_manager().start_pin_load_unit("materials");
 
 		// auto res = eng.config_store().resolve<glm::ivec2>("resolution", {800, 600});
 		// res->value({1024, 768});
@@ -158,7 +159,7 @@ int main(int, char* argv[]) {
 			}
 		};
 		as->set_movement_pattern("orbit", orbit());
-		rs->material_manager().load_material_library("materials/test");
+		rs->material_manager().load_material_library("materials/demo");
 		eng.game_state_machine().enter<mce::demo::test_state>();
 
 		eng.run();
