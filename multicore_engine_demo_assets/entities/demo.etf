@@ -44,7 +44,7 @@ metal_sphere{
 
 light{
 	point_light{
-		brightness=100;
+		brightness=50;
 	}
 	static_model{
 		model_name = "models/sphere";
@@ -60,12 +60,12 @@ world{
 camera camera (0,0,0),();
 
 cone (0,0,-10),();
-cube (-4,-4,-10),();
+cube (-4,14,-10),();
 cube (-4,0,-10),();
 cube (-4,4,-10),();
-cube (0,-4,-10),();
+cube (0,14,-10),();
 cube (0,4,-10),();
-cube (4,-4,-10),();
+cube (4,14,-10),();
 cube (4,0,-10),();
 cube (4,4,-10),();
 
@@ -74,6 +74,9 @@ cone (0,0,10),();
 sphere (0,0,0),();
 metal_sphere (5,0,0),();
 
-light (0,10,10),();
+light (-10,10,10),();
+light (-10,10,-10),();
+light (10,10,10),();
+light (10,10,-10),();
 
 world (0,0,0),();
