@@ -46,9 +46,9 @@ light{
 	point_light{
 		brightness=50;
 	}
-	static_model{
-		model_name = "models/sphere";
-	}
+	//static_model{
+	//	model_name = "models/sphere";
+	//}
 }
 
 world{
@@ -76,8 +76,8 @@ cube (4,4,-10),();
 
 cone (0,0,10),();
 
-sphere (0,0,0),();
-metal_sphere (5,0,0),();
+sphere (-15,0,0),();
+metal_sphere (-5,0,0),();
 
 light (-10,10,10),();
 light (-10,10,-10),();
@@ -86,4 +86,4 @@ light (10,10,-10),();
 
 world (0,0,0),();
 
-factory (10,0,1),();
+factory (10,-2.6,0),();
