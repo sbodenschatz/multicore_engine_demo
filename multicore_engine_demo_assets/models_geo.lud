@@ -3,4 +3,5 @@ models_geo{
 	"models/cone.model";
 	"models/sphere.model";
 	"models/sphere_metal.model";
+	"models/world.model";
 }

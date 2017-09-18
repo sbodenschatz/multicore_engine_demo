@@ -51,6 +51,12 @@ light{
 	}
 }
 
+world{
+	static_model{
+		model_name = "models/world";
+	}
+}
+
 camera camera (0,0,0),();
 
 cone (0,0,-10),();
@@ -69,3 +75,5 @@ sphere (0,0,0),();
 metal_sphere (5,0,0),();
 
 light (0,10,10),();
+
+world (0,0,0),();
