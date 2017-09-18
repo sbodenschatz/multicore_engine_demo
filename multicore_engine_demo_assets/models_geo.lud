@@ -4,4 +4,5 @@ models_geo{
 	"models/sphere.model";
 	"models/sphere_metal.model";
 	"models/world.model";
+	"models/factory1.model";
 }

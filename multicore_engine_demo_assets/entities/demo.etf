@@ -56,6 +56,11 @@ world{
 		model_name = "models/world";
 	}
 }
+factory{
+	static_model{
+		model_name = "models/factory1";
+	}
+}
 
 camera camera (0,0,0),();
 
@@ -80,3 +85,5 @@ light (10,10,10),();
 light (10,10,-10),();
 
 world (0,0,0),();
+
+factory (10,0,1),();
