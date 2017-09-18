@@ -29,10 +29,16 @@ sphere{
 	static_model{
 		model_name = "models/sphere";
 	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
 }
 metal_sphere{
 	static_model{
 		model_name = "models/sphere_metal";
+	}
+	actuator{
+		movement_pattern = "random_rotate";
 	}
 }
 
