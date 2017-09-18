@@ -21,4 +21,7 @@ materials{
 	"textures/mybricks1_albedo.dds"d;
 	"textures/mybricks1_material.dds"d;
 	"textures/mybricks1_normal.dds"d;
+	"textures/rustediron2_albedo.dds"d;
+	"textures/rustediron2_material.dds"d;
+	"textures/rustediron2_normal.dds"d;
 }
