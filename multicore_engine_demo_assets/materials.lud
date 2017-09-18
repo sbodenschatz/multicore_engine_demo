@@ -2,6 +2,7 @@ materials{
 	"materials/demo.matlib"d;
 	"textures/black.dds"d;
 	"textures/white.dds"d;
+	"textures/flat.dds"d;
 	"textures/rustediron-streaks_albedo.dds"d;
 	"textures/rustediron-streaks_material.dds"d;
 	"textures/rustediron-streaks_normal.dds"d;
