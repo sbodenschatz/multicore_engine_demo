@@ -17,4 +17,7 @@ materials{
 	"textures/copper-rock1_albedo.dds"d;
 	"textures/copper-rock1_material.dds"d;
 	"textures/copper-rock1_normal.dds"d;
+	"textures/mybricks1_albedo.dds"d;
+	"textures/mybricks1_material.dds"d;
+	"textures/mybricks1_normal.dds"d;
 }

@@ -28,5 +28,11 @@
 		"normal":"textures/copper-rock1_normal",
 		"material":"textures/copper-rock1_material",
 		"emission":"textures/black"
+	},
+	"mybricks1":{	
+		"albedo":"textures/mybricks1_albedo",
+		"normal":"textures/mybricks1_normal",
+		"material":"textures/mybricks1_material",
+		"emission":"textures/black"
 	}
 }
