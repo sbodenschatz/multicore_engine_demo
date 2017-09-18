@@ -5,16 +5,22 @@
 		"material":"textures/rustediron-streaks_material",
 		"emission":"textures/black"
 	},
-	"octostone":{		
+	"octostone":{
 		"albedo":"textures/octostone_albedo",
 		"normal":"textures/octostone_normal",
 		"material":"textures/octostone_material",
 		"emission":"textures/black"
 	}
-	"rust-panel":{		
+	"rust-panel":{
 		"albedo":"textures/rust-panel_albedo",
 		"normal":"textures/rust-panel_normal",
 		"material":"textures/rust-panel_material",
+		"emission":"textures/black"
+	}
+	"greasy-pan-2":{	
+		"albedo":"textures/greasy-pan-2_albedo",
+		"normal":"textures/greasy-pan-2_normal",
+		"material":"textures/greasy-pan-2_material",
 		"emission":"textures/black"
 	}
 }

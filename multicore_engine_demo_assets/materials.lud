@@ -11,4 +11,7 @@ materials{
 	"textures/rust-panel_albedo.dds"d;
 	"textures/rust-panel_material.dds"d;
 	"textures/rust-panel_normal.dds"d;
+	"textures/greasy-pan-2_albedo.dds"d;
+	"textures/greasy-pan-2_material.dds"d;
+	"textures/greasy-pan-2_normal.dds"d;
 }
