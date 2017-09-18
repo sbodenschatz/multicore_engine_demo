@@ -10,13 +10,13 @@
 		"normal":"textures/octostone_normal",
 		"material":"textures/octostone_material",
 		"emission":"textures/black"
-	}
+	},
 	"rust-panel":{
 		"albedo":"textures/rust-panel_albedo",
 		"normal":"textures/rust-panel_normal",
 		"material":"textures/rust-panel_material",
 		"emission":"textures/black"
-	}
+	},
 	"greasy-pan-2":{	
 		"albedo":"textures/greasy-pan-2_albedo",
 		"normal":"textures/greasy-pan-2_normal",
