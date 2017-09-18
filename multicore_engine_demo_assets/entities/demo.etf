@@ -18,11 +18,11 @@ cone {
 	static_model {
 		model_name = "models/cone";
 	}
-	actuator{
-		movement_pattern = "orbit";
-		speed = 50.0;
-		radius = 5.0;
-	}
+	//actuator{
+	//	movement_pattern = "orbit";
+	//	speed = 50.0;
+	//	radius = 5.0;
+	//}
 }
 
 sphere{
@@ -30,9 +30,15 @@ sphere{
 		model_name = "models/sphere";
 	}
 }
+metal_sphere{
+	static_model{
+		model_name = "models/sphere_metal";
+	}
+}
 
 light{
 	point_light{
+		brightness=100;
 	}
 	static_model{
 		model_name = "models/sphere";
@@ -54,5 +60,6 @@ cube (4,4,-10),();
 cone (0,0,10),();
 
 sphere (0,0,0),();
+metal_sphere (5,0,0),();
 
 light (0,10,10),();

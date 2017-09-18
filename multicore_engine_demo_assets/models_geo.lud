@@ -3,6 +3,7 @@ models_geo{
 	"models/cone.model";
 	"materials/test.matlib"d;
 	"models/sphere.model";
+	"models/sphere_metal.model";
 	"textures/rustediron-streaks_albedo.dds"d;
 	"textures/rustediron-streaks_emission.dds"d;
 	"textures/rustediron-streaks_material.dds"d;
