@@ -8,4 +8,7 @@ materials{
 	"textures/octostone_albedo.dds"d;
 	"textures/octostone_material.dds"d;
 	"textures/octostone_normal.dds"d;
+	"textures/rust-panel_albedo.dds"d;
+	"textures/rust-panel_material.dds"d;
+	"textures/rust-panel_normal.dds"d;
 }

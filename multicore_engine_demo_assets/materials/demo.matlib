@@ -11,4 +11,10 @@
 		"material":"textures/octostone_material",
 		"emission":"textures/black"
 	}
+	"rust-panel":{		
+		"albedo":"textures/rust-panel_albedo",
+		"normal":"textures/rust-panel_normal",
+		"material":"textures/rust-panel_material",
+		"emission":"textures/black"
+	}
 }
