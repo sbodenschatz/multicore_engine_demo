@@ -114,7 +114,7 @@ int main(int, char* argv[]) {
 					: center{other.center}, radius{other.radius}, speed{other.speed}, x{other.x}, y{other.y} {
 				angle = rnd.random_angle();
 				speed = rnd.random_vec_comp() * 20.0f;
-				radius = abs(rnd.random_vec_comp()) * 20.0f;
+				radius = std::abs(rnd.random_vec_comp()) * 20.0f;
 			}
 			void operator()(const mce::core::frame_time& frame_time, mce::entity::entity& ent) {
 				if(!initialized) {
