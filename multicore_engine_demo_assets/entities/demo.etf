@@ -18,23 +18,78 @@ cone {
 	static_model {
 		model_name = "models/cone";
 	}
+	//actuator{
+	//	movement_pattern = "orbit";
+	//	speed = 50.0;
+	//	radius = 5.0;
+	//}
+}
+
+sphere{
+	static_model{
+		model_name = "models/sphere";
+	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
+}
+metal_sphere{
+	static_model{
+		model_name = "models/sphere_metal";
+	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
+}
+
+light{
+	point_light{
+		brightness=50;
+	}
+	//static_model{
+	//	model_name = "models/sphere";
+	//}
 	actuator{
 		movement_pattern = "orbit";
-		speed = 50.0;
-		radius = 5.0;
+		//speed = 50.0;
+		//radius = 5.0;
+		y=(0,0,1);
+	}
+}
+
+world{
+	static_model{
+		model_name = "models/world";
+	}
+}
+factory{
+	static_model{
+		model_name = "models/factory1";
 	}
 }
 
 camera camera (0,0,0),();
 
 cone (0,0,-10),();
-cube (-4,-4,-10),();
+cube (-4,14,-10),();
 cube (-4,0,-10),();
 cube (-4,4,-10),();
-cube (0,-4,-10),();
+cube (0,14,-10),();
 cube (0,4,-10),();
-cube (4,-4,-10),();
+cube (4,14,-10),();
 cube (4,0,-10),();
 cube (4,4,-10),();
 
 cone (0,0,10),();
+
+sphere (-15,0,0),();
+metal_sphere (-5,0,0),();
+
+light (-10,10,10),();
+light (-10,10,-10),();
+light (10,10,10),();
+light (10,10,-10),();
+
+world (0,0,0),();
+
+factory (10,-2.6,0),();

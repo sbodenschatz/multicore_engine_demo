@@ -1,16 +1,14 @@
-models zip(9) {
+models zip(7) {
 	"models_col.lum";
 	"models_geo.lum";
 	"models_col.lup";
 	"models_geo.lup";
 }
-shaders zip(9) {
-	"shaders.lup";
-	"shaders.lum";
-	"../multicore_engine/multicore_engine_assets/shaders.lum"->"engine/shaders.lum";
-	"../multicore_engine/multicore_engine_assets/shaders.lup"->"engine/shaders.lup";
-}
-entities zip(0){
+entities zip(9) {
 	"entities.lup";
 	"entities.lum";
+}
+materials zip(4) {
+	"materials.lum";
+	"materials.lup";
 }
