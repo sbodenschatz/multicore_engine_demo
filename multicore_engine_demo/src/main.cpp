@@ -112,10 +112,9 @@ int main(int, char* argv[]) {
 			}
 			orbit(const orbit& other)
 					: center{other.center}, radius{other.radius}, speed{other.speed}, x{other.x}, y{other.y} {
-				std::random_device r;
-				std::default_random_engine e(r());
-				std::uniform_real_distribution<float> dist(0.0f, 360.0f);
-				angle = dist(e);
+				angle = rnd.random_angle();
+				speed = rnd.random_vec_comp() * 20.0f;
+				radius = abs(rnd.random_vec_comp()) * 20.0f;
 			}
 			void operator()(const mce::core::frame_time& frame_time, mce::entity::entity& ent) {
 				if(!initialized) {

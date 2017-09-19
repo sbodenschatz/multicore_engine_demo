@@ -49,6 +49,12 @@ light{
 	//static_model{
 	//	model_name = "models/sphere";
 	//}
+	actuator{
+		movement_pattern = "orbit";
+		//speed = 50.0;
+		//radius = 5.0;
+		y=(0,0,1);
+	}
 }
 
 world{
