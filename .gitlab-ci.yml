@@ -48,6 +48,7 @@ stages:
     - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
     - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack ${BUILD_COMPILER_NAME}/engine.pack
+    - cmake -E copy multicore_engine/default.cfg ${BUILD_COMPILER_NAME}/default.cfg
     - glslangValidator -v
 
 .mingw-build-template: &mingw-build-task
@@ -65,6 +66,7 @@ stages:
     - cmake -E copy build/multicore_engine_demo/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
     - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
     - glslangValidator -v
 
 .msbuild-build-template: &msbuild-build-task
@@ -82,6 +84,7 @@ stages:
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
     - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
     #- cmake -E remove_directory build/multicore_engine_assets
     #- cmake -E remove_directory build/multicore_engine_demo_assets
     - glslangValidator -v
