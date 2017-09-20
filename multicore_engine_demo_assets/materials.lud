@@ -1,0 +1,27 @@
+materials{
+	"materials/demo.matlib"d;
+	"textures/black.dds"d;
+	"textures/white.dds"d;
+	"textures/flat.dds"d;
+	"textures/rustediron-streaks_albedo.dds"d;
+	"textures/rustediron-streaks_material.dds"d;
+	"textures/rustediron-streaks_normal.dds"d;
+	"textures/octostone_albedo.dds"d;
+	"textures/octostone_material.dds"d;
+	"textures/octostone_normal.dds"d;
+	"textures/rust-panel_albedo.dds"d;
+	"textures/rust-panel_material.dds"d;
+	"textures/rust-panel_normal.dds"d;
+	"textures/greasy-pan-2_albedo.dds"d;
+	"textures/greasy-pan-2_material.dds"d;
+	"textures/greasy-pan-2_normal.dds"d;
+	"textures/copper-rock1_albedo.dds"d;
+	"textures/copper-rock1_material.dds"d;
+	"textures/copper-rock1_normal.dds"d;
+	"textures/mybricks1_albedo.dds"d;
+	"textures/mybricks1_material.dds"d;
+	"textures/mybricks1_normal.dds"d;
+	"textures/rustediron2_albedo.dds"d;
+	"textures/rustediron2_material.dds"d;
+	"textures/rustediron2_normal.dds"d;
+}

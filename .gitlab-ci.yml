@@ -47,6 +47,7 @@ stages:
     - cmake -E make_directory ${BUILD_COMPILER_NAME}
     - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack ${BUILD_COMPILER_NAME}/engine.pack
     - glslangValidator -v
 
 .mingw-build-template: &mingw-build-task
@@ -63,6 +64,7 @@ stages:
     - cmake -E copy build/multicore_engine_demo/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
     - cmake -E copy build/multicore_engine_demo/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
     - glslangValidator -v
 
 .msbuild-build-template: &msbuild-build-task
@@ -79,6 +81,7 @@ stages:
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
     #- cmake -E remove_directory build/multicore_engine_assets
     #- cmake -E remove_directory build/multicore_engine_demo_assets
     - glslangValidator -v
@@ -91,6 +94,7 @@ stages:
     - sha1sum -b gcc/* clang/* msvc/* mingw/* > checksums.txt
     - cat checksums.txt | sort
     - mv mingw/demo.pack demo.pack
+    - mv mingw/engine.pack engine.pack
     - rm msvc/*.pack gcc/*.pack clang/*.pack
     tags:
     - package
@@ -98,6 +102,7 @@ stages:
         name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
         - demo.pack
+        - engine.pack
         - gcc
         - clang
         - msvc

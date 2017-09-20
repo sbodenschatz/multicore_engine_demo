@@ -23,6 +23,27 @@
 #include <mce/windowing/window_system.hpp>
 #include <random>
 
+class random {
+	std::mutex mtx;
+	std::random_device r;
+	std::default_random_engine e;
+	std::uniform_real_distribution<float> dist_vec;
+	std::uniform_real_distribution<float> dist_angle;
+
+public:
+	random() : e(r()), dist_vec(-1.0f, 1.0f), dist_angle(0.0f, 360.0f) {}
+	float random_vec_comp() {
+		std::lock_guard<std::mutex> lock(mtx);
+		return dist_vec(r);
+	}
+	float random_angle() {
+		std::lock_guard<std::mutex> lock(mtx);
+		return dist_angle(r);
+	}
+};
+
+static class random rnd;
+
 int main(int, char* argv[]) {
 	try {
 		mce::core::engine eng;
@@ -37,11 +58,22 @@ int main(int, char* argv[]) {
 						  ((boost::filesystem::path(argv[0]).parent_path().parent_path() /
 							"multicore_engine_demo_assets") /
 						   "demo.pack")
+								  .string()},
+						 {std::make_unique<mce::asset::pack_file_reader>(), "engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(), "../engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(),
+						  "../multicore_engine/multicore_engine_assets/engine.pack"},
+						 {std::make_unique<mce::asset::pack_file_reader>(),
+						  (((boost::filesystem::path(argv[0]).parent_path().parent_path() /
+							 "multicore_engine") /
+							"multicore_engine_assets") /
+						   "engine.pack")
 								  .string()}}));
 		eng.asset_manager().add_asset_loader(loader);
-		eng.asset_manager().start_pin_load_unit("engine/shaders");
+		eng.asset_manager().start_pin_load_unit("shaders");
 		eng.asset_manager().start_pin_load_unit("models_geo");
 		eng.asset_manager().start_pin_load_unit("entities");
+		eng.asset_manager().start_pin_load_unit("materials");
 
 		// auto res = eng.config_store().resolve<glm::ivec2>("resolution", {800, 600});
 		// res->value({1024, 768});
@@ -53,11 +85,8 @@ int main(int, char* argv[]) {
 		struct random_rotate {
 			glm::vec3 angular_velocity;
 			random_rotate() {
-				std::random_device r;
-				std::default_random_engine e(r());
-				std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
 				do {
-					angular_velocity = {dist(e), dist(e), dist(e)};
+					angular_velocity = {rnd.random_vec_comp(), rnd.random_vec_comp(), rnd.random_vec_comp()};
 				} while(dot(angular_velocity, angular_velocity) < 0.0001f);
 				angular_velocity = normalize(angular_velocity);
 			}
@@ -79,17 +108,13 @@ int main(int, char* argv[]) {
 			glm::vec3 x = {1.0f, 0.0f, 0.0f};
 			glm::vec3 y = {0.0f, 1.0f, 0.0f};
 			orbit() {
-				std::random_device r;
-				std::default_random_engine e(r());
-				std::uniform_real_distribution<float> dist(0.0f, 360.0f);
-				angle = dist(e);
+				angle = rnd.random_angle();
 			}
 			orbit(const orbit& other)
 					: center{other.center}, radius{other.radius}, speed{other.speed}, x{other.x}, y{other.y} {
-				std::random_device r;
-				std::default_random_engine e(r());
-				std::uniform_real_distribution<float> dist(0.0f, 360.0f);
-				angle = dist(e);
+				angle = rnd.random_angle();
+				speed = rnd.random_vec_comp() * 20.0f;
+				radius = std::abs(rnd.random_vec_comp()) * 20.0f;
 			}
 			void operator()(const mce::core::frame_time& frame_time, mce::entity::entity& ent) {
 				if(!initialized) {
@@ -133,7 +158,7 @@ int main(int, char* argv[]) {
 			}
 		};
 		as->set_movement_pattern("orbit", orbit());
-		rs->material_manager().load_material_library("materials/test");
+		rs->material_manager().load_material_library("materials/demo");
 		eng.game_state_machine().enter<mce::demo::test_state>();
 
 		eng.run();
