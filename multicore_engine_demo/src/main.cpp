@@ -75,7 +75,7 @@ int main(int, char* argv[]) {
 		eng.asset_manager().start_pin_load_unit("entities");
 		eng.asset_manager().start_pin_load_unit("materials");
 
-		// auto res = eng.config_store().resolve<glm::ivec2>("resolution", {800, 600});
+		// auto res = eng.config_store().resolve<glm::ivec2>("window.resolution", {800, 600});
 		// res->value({1024, 768});
 		auto ws = eng.add_system<mce::windowing::window_system>("Multicore Engine Demo");
 		auto gs = eng.add_system<mce::graphics::graphics_system>(*ws);

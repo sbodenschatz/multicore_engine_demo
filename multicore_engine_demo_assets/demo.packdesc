@@ -8,7 +8,7 @@ entities zip(9) {
 	"entities.lup";
 	"entities.lum";
 }
-materials zip(4) {
+materials zip(3) {
 	"materials.lum";
 	"materials.lup";
 }
