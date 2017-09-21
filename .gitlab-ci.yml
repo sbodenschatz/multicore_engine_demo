@@ -194,7 +194,9 @@ license-pack-windows:
     dependencies: []
     stage: auxiliary
     script:
+    - echo Test 1
     - multicore_engine/create_license_pack_windows.bat
+    - echo Test 2
     - copy "multicore_engine_demo_assets\textures_src\About these PBR files.txt" licenses\windows\pbr_materials.txt
     tags:
     - win-cpp
