@@ -1,3 +1,4 @@
 /pipeline_cache_*.vkpc
 /cache/
 config.cfg
+/default.cfg

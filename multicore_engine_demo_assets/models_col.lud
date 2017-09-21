@@ -1,3 +1,6 @@
 models_col{
 	"models/cube.col";
+	"models/cone.col";
+	"models/sphere.col";
+	"models/sphere_metal.col";
 }

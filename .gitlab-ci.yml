@@ -47,6 +47,8 @@ stages:
     - cmake -E make_directory ${BUILD_COMPILER_NAME}
     - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack ${BUILD_COMPILER_NAME}/engine.pack
+    - cmake -E copy multicore_engine/default.cfg ${BUILD_COMPILER_NAME}/default.cfg
     - glslangValidator -v
 
 .mingw-build-template: &mingw-build-task
@@ -60,7 +62,11 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
+    - cmake -E copy build/multicore_engine_demo/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
     - glslangValidator -v
 
 .msbuild-build-template: &msbuild-build-task
@@ -74,7 +80,11 @@ stages:
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
     - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
     - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
     #- cmake -E remove_directory build/multicore_engine_assets
     #- cmake -E remove_directory build/multicore_engine_demo_assets
     - glslangValidator -v
@@ -86,11 +96,16 @@ stages:
     script:
     - sha1sum -b gcc/* clang/* msvc/* mingw/* > checksums.txt
     - cat checksums.txt | sort
+    - mv mingw/demo.pack demo.pack
+    - mv mingw/engine.pack engine.pack
+    - rm msvc/*.pack gcc/*.pack clang/*.pack
     tags:
     - package
     artifacts: &package-artifact-spec
         name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
+        - demo.pack
+        - engine.pack
         - gcc
         - clang
         - msvc
@@ -179,7 +194,10 @@ license-pack-windows:
     dependencies: []
     stage: auxiliary
     script:
-    - multicore_engine/create_license_pack_windows.bat
+    - pushd .
+    - call multicore_engine/create_license_pack_windows.bat
+    - popd
+    - copy "multicore_engine_demo_assets\textures_src\About these PBR files.txt" licenses\windows\pbr_materials.txt
     tags:
     - win-cpp
     artifacts:
@@ -193,6 +211,7 @@ license-pack-linux:
     stage: auxiliary
     script:
     - multicore_engine/create_license_pack_linux.sh
+    - cp "multicore_engine_demo_assets/textures_src/About these PBR files.txt" licenses\linux\pbr_materials.txt
     tags:
     - cpp
     artifacts:

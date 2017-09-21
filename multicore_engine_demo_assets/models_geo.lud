@@ -1,6 +1,8 @@
 models_geo{
 	"models/cube.model";
 	"models/cone.model";
-	"materials/test.matlib"d;
-	"textures/test.dds"d;
+	"models/sphere.model";
+	"models/sphere_metal.model";
+	"models/world.model";
+	"models/factory1.model";
 }
