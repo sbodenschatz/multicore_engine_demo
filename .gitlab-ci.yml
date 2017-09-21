@@ -195,6 +195,7 @@ license-pack-windows:
     stage: auxiliary
     script:
     - multicore_engine/create_license_pack_windows.bat
+    - copy "multicore_engine_demo_assets\textures_src\About these PBR files.txt" licenses\windows\pbr_materials.txt
     tags:
     - win-cpp
     artifacts:
@@ -208,6 +209,7 @@ license-pack-linux:
     stage: auxiliary
     script:
     - multicore_engine/create_license_pack_linux.sh
+    - cp "multicore_engine_demo_assets/textures_src/About these PBR files.txt" licenses\linux\pbr_materials.txt
     tags:
     - cpp
     artifacts:
