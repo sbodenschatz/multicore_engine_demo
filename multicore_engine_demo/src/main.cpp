@@ -14,7 +14,7 @@
 #include <mce/core/game_state_machine.hpp>
 #include <mce/demo/test_state.hpp>
 #include <mce/demo/version.hpp>
-#include <mce/entity/parser/entity_text_file_variable_conversion.hpp>
+#include <mce/entity/parser/entity_template_lang_variable_conversion.hpp>
 #include <mce/graphics/graphics_system.hpp>
 #include <mce/input/input_system.hpp>
 #include <mce/rendering/renderer_system.hpp>
