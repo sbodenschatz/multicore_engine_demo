@@ -179,7 +179,7 @@ int main(int, char* argv[]) {
 											   "core.frametime.histogram");
 				hist_ft->labels()->header[0] = "objects";
 				hist_ft->labels()->prefix = std::to_string(objects);
-				eng.statistics_manager().save();
+				eng.statistics_manager().save("\t");
 			}
 		});
 
