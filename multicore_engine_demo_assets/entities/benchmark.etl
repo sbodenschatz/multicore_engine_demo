@@ -1,0 +1,36 @@
+camera {
+	camera{}
+	first_person_flyer{
+		inverted_y_axis = 0;
+	}
+}
+
+cube {
+	static_model {
+		model_name = "models/cube";
+	}
+	actuator{
+		movement_pattern = "random_rotate";
+	}
+}
+
+light{
+	point_light{
+		brightness=50;
+	}
+	actuator{
+		movement_pattern = "orbit";
+		//speed = 50.0;
+		//radius = 5.0;
+		y=(0,0,1);
+	}
+}
+
+camera camera (0,0,0),();
+
+light (-10,10,10),();
+light (-10,10,-10),();
+light (10,10,10),();
+light (10,10,-10),();
+
+cube (0,0,10),();
