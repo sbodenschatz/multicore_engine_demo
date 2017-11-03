@@ -160,14 +160,26 @@ int main(int, char* argv[]) {
 		};
 		as->set_movement_pattern("orbit", orbit());
 		rs->material_manager().load_material_library("materials/demo");
-		eng.game_state_machine().enter<mce::demo::test_state>();
-		ws->window().key_callback([&eng](mce::glfw::key key, int, mce::glfw::button_action button_action,
-										 mce::glfw::modifier_flags) {
+		size_t objects = 0;
+		eng.game_state_machine().enter<mce::demo::test_state>(objects);
+		ws->window().key_callback([&eng, objects](
+				mce::glfw::key key, int, mce::glfw::button_action button_action, mce::glfw::modifier_flags) {
 			if(button_action != mce::glfw::button_action::press) return;
 			if(key == mce::glfw::key::k_f11) {
 				eng.statistics_manager().clear_values();
 			} else if(key == mce::glfw::key::k_f10) {
-				eng.statistics_manager().save();
+				auto aggregate_ft =
+						eng.statistics_manager()
+								.get<mce::util::aggregate_statistic<std::chrono::microseconds::rep>>(
+										"core.frametime.aggregate");
+				aggregate_ft->labels()->header[0] = "objects";
+				aggregate_ft->labels()->prefix = std::to_string(objects);
+				auto hist_ft = eng.statistics_manager()
+									   .get<mce::util::histogram_statistic<std::chrono::microseconds::rep>>(
+											   "core.frametime.histogram");
+				hist_ft->labels()->header[0] = "objects";
+				hist_ft->labels()->prefix = std::to_string(objects);
+				eng.statistics_manager().save("\t");
 			}
 		});
 
