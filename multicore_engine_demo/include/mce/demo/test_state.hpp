@@ -15,7 +15,7 @@ namespace demo {
 class test_state : public core::entity_game_state {
 public:
 	test_state(mce::core::engine* engine, mce::core::game_state_machine* state_machine,
-			   mce::core::game_state* parent_state);
+			   mce::core::game_state* parent_state, size_t& object_count);
 	virtual ~test_state();
 };
 
