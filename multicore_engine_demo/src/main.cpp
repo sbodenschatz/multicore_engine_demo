@@ -161,8 +161,9 @@ int main(int, char* argv[]) {
 		as->set_movement_pattern("orbit", orbit());
 		rs->material_manager().load_material_library("materials/demo");
 		eng.game_state_machine().enter<mce::demo::test_state>();
-		auto benchmark_mode = eng.config_store().resolve("demo.benchmark", 0);
-		if(benchmark_mode->value()) {
+		auto benchmark_mode = eng.config_store().resolve("demo.benchmark", 0)->value();
+		std::atomic<int> pending_stats = {0};
+		if(benchmark_mode) {
 			auto objects = eng.config_store().resolve("demo.benchmark.objects", 0)->value();
 			auto write_stats = [&eng, objects]() {
 				auto aggregate_ft =
@@ -179,24 +180,26 @@ int main(int, char* argv[]) {
 				hist_ft->labels()->prefix = std::to_string(objects);
 				eng.statistics_manager().save("\t");
 			};
-			ws->window().key_callback([&eng, write_stats, objects](mce::glfw::key key, int,
-																   mce::glfw::button_action button_action,
-																   mce::glfw::modifier_flags) {
+			ws->window().key_callback([&eng, write_stats, objects, &pending_stats](
+					mce::glfw::key key, int, mce::glfw::button_action button_action,
+					mce::glfw::modifier_flags) {
 				if(button_action != mce::glfw::button_action::press) return;
 				if(key == mce::glfw::key::k_f11) {
 					eng.statistics_manager().clear_values();
 				} else if(key == mce::glfw::key::k_f10) {
 					write_stats();
 				} else if(key == mce::glfw::key::k_f9) {
+					++pending_stats;
 					eng.statistics_manager().clear_values();
-					std::thread t([&eng, write_stats, objects]() {
+					std::thread t([&eng, write_stats, objects, &pending_stats]() {
 						using namespace std::chrono_literals;
 						std::this_thread::sleep_for(1min);
 						write_stats();
-						eng.stop();
 						boost::filesystem::rename("stats/core.frametime.histogram.csv",
 												  "stats/" + std::to_string(objects) +
 														  ".frametime.histogram.csv");
+						eng.stop();
+						--pending_stats;
 					});
 					t.detach();
 				}
@@ -204,6 +207,10 @@ int main(int, char* argv[]) {
 		}
 
 		eng.run();
+		if(benchmark_mode) {
+			using namespace std::chrono_literals;
+			while(pending_stats.load()) std::this_thread::sleep_for(1ms);
+		}
 	} catch(const std::exception& e) {
 		std::cerr << e.what();
 	}
