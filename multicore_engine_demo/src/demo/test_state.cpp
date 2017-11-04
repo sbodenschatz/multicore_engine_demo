@@ -25,7 +25,7 @@ test_state::test_state(mce::core::engine* engine, mce::core::game_state_machine*
 	add_system_state<mce::simulation::actuator_state>();
 	auto benchmark_mode = engine->config_store().resolve("demo.benchmark", 0);
 	auto ent_asset = engine->asset_manager().load_asset_sync(
-			benchmark_mode->value() ? "entities/demo.etl" : "entities/benchmark.etl");
+			benchmark_mode->value() ? "entities/benchmark.etl" : "entities/demo.etl");
 	entity_manager().load_entities_from_template_lang_file(ent_asset);
 	object_count = entity_manager().entity_count();
 }
