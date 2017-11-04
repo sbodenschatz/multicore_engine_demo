@@ -1,3 +1,8 @@
 entities{
 	"entities/demo.etl"d;
+	"entities/benchmark.etl"d;
+	"entities/10000cubes.etl"d;
+	"entities/1000cubes.etl"d;
+	"entities/100cubes.etl"d;
+	"entities/10cubes.etl"d;
 }
