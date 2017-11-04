@@ -26,50 +26,6 @@ light{
 	}
 }
 
-camera camera (0,0,0),();
+camera camera (0,0,-10),();
 
 light (-10,10,10),();
-
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-include "entities/10cubes.etl";
-
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-include "entities/100cubes.etl";
-
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-include "entities/1000cubes.etl";
-
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";
-include "entities/10000cubes.etl";

@@ -160,11 +160,10 @@ int main(int, char* argv[]) {
 		};
 		as->set_movement_pattern("orbit", orbit());
 		rs->material_manager().load_material_library("materials/demo");
-		size_t objects = 0;
-		eng.game_state_machine().enter<mce::demo::test_state>(objects);
+		eng.game_state_machine().enter<mce::demo::test_state>();
 		auto benchmark_mode = eng.config_store().resolve("demo.benchmark", 0);
 		if(benchmark_mode->value()) {
-			objects -= 2;
+			auto objects = eng.config_store().resolve("demo.benchmark.objects", 0)->value();
 			auto write_stats = [&eng, objects]() {
 				auto aggregate_ft =
 						eng.statistics_manager()
