@@ -1,3 +1,4 @@
 entities{
-	"entities/demo.etf"d;
+	"entities/demo.etl"d;
+	"entities/benchmark.etl"d;
 }
