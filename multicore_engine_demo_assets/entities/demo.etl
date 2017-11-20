@@ -1,5 +1,7 @@
 camera {
-	camera{}
+	camera{
+		name = "main";
+	}
 	first_person_flyer{
 		inverted_y_axis = 0;
 	}

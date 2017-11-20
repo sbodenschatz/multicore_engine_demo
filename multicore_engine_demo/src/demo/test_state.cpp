@@ -21,7 +21,7 @@ namespace demo {
 test_state::test_state(mce::core::engine* engine, mce::core::game_state_machine* state_machine,
 					   mce::core::game_state* parent_state)
 		: entity_game_state(engine, state_machine, parent_state) {
-	add_system_state<mce::rendering::renderer_state>();
+	auto rs = add_system_state<mce::rendering::renderer_state>();
 	add_system_state<mce::input::first_person_input_state>();
 	add_system_state<mce::simulation::actuator_state>();
 	auto benchmark_mode = engine->config_store().resolve("demo.benchmark", 0);
@@ -35,6 +35,7 @@ test_state::test_state(mce::core::engine* engine, mce::core::game_state_machine*
 			entity_manager().create_entity(cube_cfg);
 		}
 	}
+	rs->camera_preferences()->push_back("main");
 }
 
 test_state::~test_state() {}
