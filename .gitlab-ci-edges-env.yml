@@ -1,0 +1,170 @@
+variables:
+    BUILD_CONCURRENCY: "10"
+    GIT_SUBMODULE_STRATEGY: normal
+
+stages:
+  - build
+  - auxiliary
+  - package
+
+.cache-paths-spec: &cache-paths
+    - build
+
+.linux-cache-spec-template: &linux-cache-spec
+    cache:
+        key: ${CI_COMMIT_REF_SLUG}-${CI_JOB_NAME}
+        paths: *cache-paths
+
+.windows-cache-spec-template: &windows-cache-spec
+    cache:
+        paths: *cache-paths
+        key: "%CI_COMMIT_REF_SLUG%-%CI_JOB_NAME%-%CI_RUNNER_ID%"
+
+.artifacts-spec-build-linux-template: &artifact-spec-build-linux
+    artifacts:
+        name: "mce_${CI_COMMIT_REF_SLUG}_${CI_JOB_ID}_${CI_COMMIT_SHA}_${CI_JOB_NAME}"
+        expire_in: 1 week
+        paths:
+        - ${BUILD_COMPILER_NAME}
+
+.artifacts-spec-build-windows-template: &artifact-spec-build-windows
+    artifacts:
+        name: "mce_%CI_COMMIT_REF_SLUG%_%CI_JOB_ID%_%CI_COMMIT_SHA%_%CI_JOB_NAME%"
+        expire_in: 1 week
+        paths:
+        - "%BUILD_COMPILER_NAME%"
+
+.linux-build-template: &linux-build-task
+    stage: build
+    <<: *linux-cache-spec    
+    script:
+    - cmake -E make_directory build
+    - cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} ..
+    - cmake --build . --target mce_demo -- -j ${BUILD_CONCURRENCY}
+    - export LD_LIBRARY_PATH=/usr/local/lib/${BUILD_COMPILER_NAME}-${BUILD_TYPE,,}/
+    - cd ..
+    - cmake -E make_directory ${BUILD_COMPILER_NAME}
+    - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack ${BUILD_COMPILER_NAME}/engine.pack
+    - cmake -E copy multicore_engine/default.cfg ${BUILD_COMPILER_NAME}/default.cfg
+    - glslangValidator -v
+
+.mingw-build-template: &mingw-build-task
+    stage: build
+    <<: *windows-cache-spec    
+    script:
+    - cmake -E make_directory build
+    - cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
+    - cmake --build . --target mce_demo -- -j %BUILD_CONCURRENCY%
+    - cd ..
+    - cmake -E make_directory %BUILD_COMPILER_NAME%
+    - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
+    - cmake -E copy build/multicore_engine_demo/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
+    - glslangValidator -v
+
+.msbuild-build-template: &msbuild-build-task
+    stage: build
+    <<: *windows-cache-spec    
+    script:
+    - cmake -E make_directory build
+    - cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Visual Studio 15 2017 Win64" ..
+    - cmake --build . --target mce_demo --config %BUILD_TYPE% -- /m:%BUILD_CONCURRENCY%
+    - cd ..
+    - cmake -E make_directory %BUILD_COMPILER_NAME%
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
+    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
+    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
+    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
+    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
+    #- cmake -E remove_directory build/multicore_engine_assets
+    #- cmake -E remove_directory build/multicore_engine_demo_assets
+    - glslangValidator -v
+
+.package-task-template: &package-task
+    stage: package
+    variables:
+        GIT_STRATEGY: none
+    script:
+    - sha1sum -b gcc/* clang/* > checksums.txt
+    - cat checksums.txt | sort
+    - mv gcc/demo.pack demo.pack
+    - mv gcc/engine.pack engine.pack
+    - rm clang/*.pack
+    image: alpine:latest
+    artifacts: &package-artifact-spec
+        name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
+        paths:
+        - demo.pack
+        - engine.pack
+        - gcc
+        - clang
+        - checksums.txt
+        - licenses
+
+gcc-release-build:
+    variables:
+        BUILD_CXX_COMPILER: "g++"
+        BUILD_C_COMPILER: "gcc"
+        BUILD_TYPE: "Release"
+        BUILD_COMPILER_NAME: "gcc"
+        BUILD_SANITIZE: "NO"
+    image: $CI_REGISTRY/ci-util/cpp/gcc/release
+    <<: *linux-build-task
+    <<: *artifact-spec-build-linux
+
+clang-release-build:
+    variables:
+        BUILD_CXX_COMPILER: "clang++"
+        BUILD_C_COMPILER: "clang"
+        BUILD_TYPE: "Release"
+        BUILD_COMPILER_NAME: "clang"
+        BUILD_SANITIZE: "NO"
+    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    <<: *linux-build-task
+    <<: *artifact-spec-build-linux
+    
+scan-build:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - mkdir -p build && cd build
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
+    - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
+    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    <<: *linux-cache-spec
+        
+license-pack-linux:
+    dependencies: []
+    stage: auxiliary
+    script:
+    - multicore_engine/create_license_pack_linux.sh
+    - cp "multicore_engine_demo_assets/textures_src/About these PBR files.txt" licenses\linux\pbr_materials.txt
+    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    artifacts:
+        name: "mce_${CI_COMMIT_REF_NAME##*/}_${CI_JOB_ID}_${CI_COMMIT_SHA}_${CI_JOB_NAME}"
+        expire_in: 1 week
+        paths:
+        - licenses
+
+package-base:
+    <<: *package-task
+    except: 
+    - tags
+    artifacts:
+        <<: *package-artifact-spec
+        expire_in: 6 months
+
+package-tags:
+    <<: *package-task
+    only: 
+    - tags
+
