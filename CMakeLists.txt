@@ -10,7 +10,7 @@ if(NOT MSVC)
 	set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
 endif()
 
-#make_build_scripts_project(.gitlab-ci.yml Doxyfile .clang-format)
+make_build_scripts_project(MCE_DEMO .gitlab-ci.yml .gitlab-ci-edges-env.yml)
 get_version_info()
 
 add_subdirectory(multicore_engine)
