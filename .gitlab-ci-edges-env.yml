@@ -1,6 +1,6 @@
 variables:
     BUILD_CONCURRENCY: "10"
-    GIT_SUBMODULE_STRATEGY: normal
+    GIT_SUBMODULE_STRATEGY: recursive
 
 stages:
   - build
