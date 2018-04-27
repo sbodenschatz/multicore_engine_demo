@@ -4,7 +4,6 @@ variables:
 
 stages:
   - build
-  - auxiliary
   - package
 
 .cache-paths-spec: &cache-paths
@@ -134,7 +133,7 @@ clang-release-build:
     
 scan-build:
     dependencies: []
-    stage: auxiliary
+    stage: build
     script:
     - mkdir -p build && cd build
     - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
@@ -144,7 +143,7 @@ scan-build:
         
 license-pack-linux:
     dependencies: []
-    stage: auxiliary
+    stage: build
     script:
     - multicore_engine/create_license_pack_linux.sh
     - cp "multicore_engine_demo_assets/textures_src/About these PBR files.txt" licenses\linux\pbr_materials.txt
