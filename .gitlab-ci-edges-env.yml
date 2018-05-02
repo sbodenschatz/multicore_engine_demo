@@ -77,19 +77,20 @@ stages:
     variables:
         GIT_STRATEGY: none
     script:
-    - sha1sum -b gcc/* clang/* > checksums.txt
+    - sha1sum -b gcc/assets/* clang/assets/* > checksums.txt
     - cat checksums.txt | sort
-    - mv gcc/demo.pack demo.pack
-    - mv gcc/engine.pack engine.pack
-    - rm clang/*.pack
+    - mv gcc/assets/ assets/
+    - mv gcc/bin gcc-bin
+    - mv clang/bin clang-bin
+    - rm -r clang/assets/
+    - rmdir gcc clang
     image: alpine:latest
     artifacts: &package-artifact-spec
         name: "mce_${CI_COMMIT_REF_SLUG}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
-        - demo.pack
-        - engine.pack
-        - gcc
-        - clang
+        - assets
+        - gcc-bin
+        - clang-bin
         - checksums.txt
         - licenses
 
