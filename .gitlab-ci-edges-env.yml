@@ -39,15 +39,11 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} ..
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} -DCMAKE_INSTALL_PREFIX=${BUILD_COMPILER_NAME} ..
     - cmake --build . --target mce_demo -- -j ${BUILD_CONCURRENCY}
-    - export LD_LIBRARY_PATH=/usr/local/lib/${BUILD_COMPILER_NAME}-${BUILD_TYPE,,}/
+    - cmake --build . --target install-mce-demo -- -j ${BUILD_CONCURRENCY}
     - cd ..
-    - cmake -E make_directory ${BUILD_COMPILER_NAME}
-    - cmake -E copy build/multicore_engine_demo/mce_demo ${BUILD_COMPILER_NAME}/demo
-    - cmake -E copy build/multicore_engine_demo_assets/demo.pack ${BUILD_COMPILER_NAME}/demo.pack
-    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack ${BUILD_COMPILER_NAME}/engine.pack
-    - cmake -E copy multicore_engine/default.cfg ${BUILD_COMPILER_NAME}/default.cfg
+    - cmake -E rename build/${BUILD_COMPILER_NAME} ${BUILD_COMPILER_NAME}
     - glslangValidator -v
 
 .mingw-build-template: &mingw-build-task
@@ -56,16 +52,11 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%BUILD_COMPILER_NAME% ..
     - cmake --build . --target mce_demo -- -j %BUILD_CONCURRENCY%
+    - cmake --build . --target install-mce-demo -- -j %BUILD_CONCURRENCY%
     - cd ..
-    - cmake -E make_directory %BUILD_COMPILER_NAME%
-    - cmake -E copy build/multicore_engine_demo/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
-    - cmake -E copy build/multicore_engine_demo/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
-    - cmake -E copy build/multicore_engine_demo/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
-    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
-    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
-    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
+    - cmake -E rename build/%BUILD_COMPILER_NAME% %BUILD_COMPILER_NAME%
     - glslangValidator -v
 
 .msbuild-build-template: &msbuild-build-task
@@ -74,18 +65,11 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Visual Studio 15 2017 Win64" ..
-    - cmake --build . --target mce_demo --config %BUILD_TYPE% -- /m:%BUILD_CONCURRENCY%
+    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -DCMAKE_INSTALL_PREFIX=%BUILD_COMPILER_NAME% -G "Visual Studio 15 2017 Win64" ..
+    - cmake --build . --config %BUILD_TYPE% --target mce_demo -- /m:%BUILD_CONCURRENCY%
+    - cmake --build . --config %BUILD_TYPE% --target install-mce-demo -- /m:%BUILD_CONCURRENCY%
     - cd ..
-    - cmake -E make_directory %BUILD_COMPILER_NAME%
-    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/mce_demo.exe %BUILD_COMPILER_NAME%/demo.exe
-    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbb.dll %BUILD_COMPILER_NAME%/tbb.dll
-    - cmake -E copy build/multicore_engine_demo/%BUILD_TYPE%/tbbmalloc.dll %BUILD_COMPILER_NAME%/tbbmalloc.dll
-    - cmake -E copy build/multicore_engine_demo_assets/demo.pack %BUILD_COMPILER_NAME%/demo.pack
-    - cmake -E copy build/multicore_engine/multicore_engine_assets/engine.pack %BUILD_COMPILER_NAME%/engine.pack
-    - cmake -E copy multicore_engine/default.cfg %BUILD_COMPILER_NAME%/default.cfg
-    #- cmake -E remove_directory build/multicore_engine_assets
-    #- cmake -E remove_directory build/multicore_engine_demo_assets
+    - cmake -E rename build/%BUILD_COMPILER_NAME% %BUILD_COMPILER_NAME%
     - glslangValidator -v
 
 .package-task-template: &package-task
