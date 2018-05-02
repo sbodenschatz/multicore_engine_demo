@@ -80,9 +80,10 @@ stages:
     - sha1sum -b gcc/assets/* clang/assets/* > checksums.txt
     - cat checksums.txt | sort
     - mv gcc/assets/ assets/
+    - mv gcc/default.cfg default.cfg
     - mv gcc/bin gcc-bin
     - mv clang/bin clang-bin
-    - rm -r clang/assets/
+    - rm -r clang/assets/ default.cfg
     - rmdir gcc clang
     image: alpine:latest
     artifacts: &package-artifact-spec
