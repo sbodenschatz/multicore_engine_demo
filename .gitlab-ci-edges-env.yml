@@ -83,7 +83,7 @@ stages:
     - mv gcc/default.cfg default.cfg
     - mv gcc/bin gcc-bin
     - mv clang/bin clang-bin
-    - rm -r clang/assets/ default.cfg
+    - rm -r clang/assets/ clang/default.cfg
     - rmdir gcc clang
     image: alpine:latest
     artifacts: &package-artifact-spec
