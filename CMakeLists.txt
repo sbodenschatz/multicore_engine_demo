@@ -21,6 +21,12 @@ endif()
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT mce_demo)
 
+install(
+		FILES ${CMAKE_CURRENT_SOURCE_DIR}/multicore_engine/default.cfg
+		DESTINATION .
+		COMPONENT mce-demo
+	)
+
 include(ComponentInstallTargets)
 set(INSTALL_COMPONENT_mce-demo_DEPENDS mce_demo)
 define_component_install_targets(mce-demo)
