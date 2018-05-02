@@ -20,3 +20,6 @@ if(NOT STATIC_ANALYSIS_ONLY)
 endif()
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT mce_demo)
+
+include(ComponentInstallTargets)
+define_component_install_targets(mce-demo)

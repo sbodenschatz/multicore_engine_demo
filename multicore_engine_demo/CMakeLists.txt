@@ -22,3 +22,15 @@ if(NOT STATIC_ANALYSIS_ONLY)
 endif()
 include(SharedLibsCopy)
 shared_libs_copy(mce_demo SHARED_LIBS TBB::tbb TBB::tbbmalloc)
+
+install(
+		TARGETS mce_demo
+		DESTINATION bin
+		COMPONENT mce-demo
+	)
+
+install(
+		FILES ${SHARED_LIBS}
+		DESTINATION bin
+		COMPONENT mce-demo
+	)

@@ -49,27 +49,32 @@ int main(int, char* argv[]) {
 	try {
 		mce::core::engine eng;
 		eng.application_metadata({"MCE Demo Application", mce::demo::get_build_version_number()});
-		auto loader =
-				std::make_shared<mce::asset::load_unit_asset_loader>(std::vector<mce::asset::path_prefix>(
-						{{std::make_unique<mce::asset::pack_file_reader>(), "demo.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(), "../demo.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(),
-						  "../multicore_engine_demo_assets/demo.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(),
-						  ((boost::filesystem::path(argv[0]).parent_path().parent_path() /
-							"multicore_engine_demo_assets") /
-						   "demo.pack")
-								  .string()},
-						 {std::make_unique<mce::asset::pack_file_reader>(), "engine.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(), "../engine.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(),
-						  "../multicore_engine/multicore_engine_assets/engine.pack"},
-						 {std::make_unique<mce::asset::pack_file_reader>(),
-						  (((boost::filesystem::path(argv[0]).parent_path().parent_path() /
-							 "multicore_engine") /
-							"multicore_engine_assets") /
-						   "engine.pack")
-								  .string()}}));
+		auto loader = std::make_shared<
+				mce::asset::load_unit_asset_loader>(std::vector<mce::asset::path_prefix>(
+				{{std::make_unique<mce::asset::pack_file_reader>(), "demo.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(), "../demo.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  "../multicore_engine_demo_assets/demo.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  ((boost::filesystem::path(argv[0]).parent_path().parent_path() /
+					"multicore_engine_demo_assets") /
+				   "demo.pack")
+						  .string()},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  ((boost::filesystem::path(argv[0]).parent_path().parent_path() / "assets") / "demo.pack")
+						  .string()},
+				 {std::make_unique<mce::asset::pack_file_reader>(), "engine.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(), "../engine.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  "../multicore_engine/multicore_engine_assets/engine.pack"},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  (((boost::filesystem::path(argv[0]).parent_path().parent_path() / "multicore_engine") /
+					"multicore_engine_assets") /
+				   "engine.pack")
+						  .string()},
+				 {std::make_unique<mce::asset::pack_file_reader>(),
+				  ((boost::filesystem::path(argv[0]).parent_path().parent_path() / "assets") / "engine.pack")
+						  .string()}}));
 		eng.asset_manager().add_asset_loader(loader);
 		eng.asset_manager().start_pin_load_unit("shaders");
 		eng.asset_manager().start_pin_load_unit("models_geo");
@@ -181,8 +186,8 @@ int main(int, char* argv[]) {
 				eng.statistics_manager().save("\t");
 			};
 			ws->window().key_callback([&eng, write_stats, objects, &pending_stats](
-					mce::glfw::key key, int, mce::glfw::button_action button_action,
-					mce::glfw::modifier_flags) {
+											  mce::glfw::key key, int, mce::glfw::button_action button_action,
+											  mce::glfw::modifier_flags) {
 				if(button_action != mce::glfw::button_action::press) return;
 				if(key == mce::glfw::key::k_f11) {
 					eng.statistics_manager().clear_values();

@@ -29,3 +29,9 @@ add_custom_target(mce_demo_assets_units ALL SOURCES ${LOAD_UNIT_DESCS} DEPENDS $
 add_custom_target(mce_demo_assets_packs ALL SOURCES ${PACK_DESCS} DEPENDS ${PACK_FILES})
 add_dependencies(mce_demo_assets_units mce_demo_assets_compile mce_demo_assets_models)
 add_dependencies(mce_demo_assets_packs mce_demo_assets_units)
+
+install(
+		FILES ${PACK_FILES} ${MCE_ENGINE_ASSETS_PACKS}
+		DESTINATION assets
+		COMPONENT mce-demo
+	)
