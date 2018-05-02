@@ -7,10 +7,6 @@ include(BuildConfig.cmake)
 
 enable_testing()
 
-if(NOT MSVC)
-	set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
-endif()
-
 include(IntegrateBuildScripts)
 make_build_scripts_project(MCE_DEMO .gitlab-ci.yml .gitlab-ci-edges-env.yml)
 include(RepositoryVersionDetector)
