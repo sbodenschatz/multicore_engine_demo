@@ -9,9 +9,9 @@ target_include_directories(mce_demo PUBLIC
 		$<INSTALL_INTERFACE:include>
 	)
 target_link_libraries(mce_demo 
-		mce_core
-		mce_headed
-		mce_renderer
+		mce::mce_core
+		mce::mce_headed
+		mce::mce_renderer
 		Boost::program_options
 	)
 include(SourceGroupGenerator)
