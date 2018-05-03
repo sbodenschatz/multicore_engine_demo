@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.10)
-project(multicore_engine_demo LANGUAGES CXX)
+
 file(GLOB_RECURSE DEMO_SRC "src/*.cpp")
 file(GLOB_RECURSE DEMO_HEADERS "include/*.hpp")
 configure_file(src/demo/version.cpp.in src/demo/version.cpp)

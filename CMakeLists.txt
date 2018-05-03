@@ -1,7 +1,17 @@
 cmake_minimum_required (VERSION 3.10)
-project (multicore_engine_demo)
-
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_helpers")
+
+include(RepositoryVersionDetector)
+get_version_info()
+
+project (multicore_engine_demo
+		VERSION ${BUILD_VERSION_MAJOR}.${BUILD_VERSION_MINOR}.${BUILD_VERSION_PATCH}.${BUILD_VERSION_TWEAK} 
+		# Language C is needed for pthreads detection to work correctly
+		LANGUAGES CXX C
+	)
+
+include(IntegrateBuildScripts)
+make_build_scripts_project(MCE_DEMO .gitlab-ci.yml .gitlab-ci-edges-env.yml)
 
 include(BuildConfig.cmake)
 
@@ -16,12 +26,6 @@ else()
 endif()
 
 enable_testing()
-
-include(IntegrateBuildScripts)
-make_build_scripts_project(MCE_DEMO .gitlab-ci.yml .gitlab-ci-edges-env.yml)
-include(RepositoryVersionDetector)
-get_version_info()
-
 
 find_package(TBB REQUIRED)
 add_subdirectory(multicore_engine_demo)
