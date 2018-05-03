@@ -42,6 +42,7 @@ stages:
     - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} -DCMAKE_INSTALL_PREFIX=${BUILD_COMPILER_NAME} ..
     - cmake --build . --target mce_demo -- -j ${BUILD_CONCURRENCY}
     - cmake --build . --target install-mce-demo -- -j ${BUILD_CONCURRENCY}
+    - sha1sum -b multicore_engine_demo_assets/*.lu* multicore_engine_demo_assets/models/*.model
     - cd ..
     - cmake -E rename build/${BUILD_COMPILER_NAME} ${BUILD_COMPILER_NAME}
     - glslangValidator -v
@@ -83,7 +84,7 @@ stages:
     - mv gcc/default.cfg default.cfg
     - mv gcc/bin gcc-bin
     - mv clang/bin clang-bin
-    - rm -r clang/assets/ default.cfg
+    - rm -r clang/assets/ clang/default.cfg
     - rmdir gcc clang
     image: alpine:latest
     artifacts: &package-artifact-spec
