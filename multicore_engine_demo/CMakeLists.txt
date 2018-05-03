@@ -9,13 +9,14 @@ target_include_directories(mce_demo PUBLIC
 		$<INSTALL_INTERFACE:include>
 	)
 target_link_libraries(mce_demo 
-		mce::mce_core
-		mce::mce_headed
-		mce::mce_renderer
+		mce::core
+		mce::headed
+		mce::renderer
 		Boost::program_options
 	)
 include(SourceGroupGenerator)
 make_src_groups_code("include/mce" "src")
+set_target_properties(mce_demo PROPERTIES EXPORT_NAME demo)
 enable_custom_lto(mce_demo)
 if(NOT STATIC_ANALYSIS_ONLY)
 	add_dependencies(mce_demo mce_demo_assets_packs mce_assets_packs)
