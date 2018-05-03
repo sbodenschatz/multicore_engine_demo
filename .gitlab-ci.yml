@@ -40,7 +40,7 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} ..
+    - cmake -U*_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=${BUILD_C_COMPILER} -DCMAKE_CXX_COMPILER=${BUILD_CXX_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DSANITIZER_INSTRUMENTATION=${BUILD_SANITIZE} ..
     - cmake --build . --target mce_demo -- -j ${BUILD_CONCURRENCY}
     - export LD_LIBRARY_PATH=/usr/local/lib/${BUILD_COMPILER_NAME}-${BUILD_TYPE,,}/
     - cd ..
@@ -57,7 +57,7 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
+    - cmake -U*_DIR -G "MinGW Makefiles" -DCMAKE_C_COMPILER=%BUILD_C_COMPILER% -DCMAKE_CXX_COMPILER=%BUILD_CXX_COMPILER% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% ..
     - cmake --build . --target mce_demo -- -j %BUILD_CONCURRENCY%
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
@@ -75,7 +75,7 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Visual Studio 15 2017 Win64" ..
+    - cmake -U*_DIR -G "Visual Studio 15 2017 Win64" ..
     - cmake --build . --target mce_demo --config %BUILD_TYPE% -- /m:%BUILD_CONCURRENCY%
     - cd ..
     - cmake -E make_directory %BUILD_COMPILER_NAME%
@@ -184,7 +184,7 @@ scan-build:
     stage: auxiliary
     script:
     - mkdir -p build && cd build
-    - cmake -U*_INCLUDE -U*_LIBS -ULIBS_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
+    - cmake -U*_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
     - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
     tags:
     - cpp
