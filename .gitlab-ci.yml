@@ -170,8 +170,10 @@ license-pack-windows:
     stage: build
     script:
     - pushd .
-    - call multicore_engine/create_license_pack_windows.bat
+    - cd multicore_engine
+    - call create_license_pack_windows.bat
     - popd
+    - move multicore_engine\licenses licenses
     - copy "multicore_engine_demo_assets\textures_src\About these PBR files.txt" licenses\windows\pbr_materials.txt
     tags:
     - win-cpp
