@@ -92,10 +92,10 @@ stages:
         name: "mce_${CI_COMMIT_REF_SLUG}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
         paths:
         - assets
-        - gcc
-        - clang
-        - msvc
-        - mingw
+        - gcc-bin
+        - clang-bin
+        - msvc-bin
+        - mingw-bin
         - checksums.txt
         - licenses
 
