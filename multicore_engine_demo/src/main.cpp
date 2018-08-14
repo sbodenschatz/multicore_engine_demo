@@ -89,7 +89,7 @@ int main(int, char* argv[]) {
 		eng.add_system<mce::input::input_system>(*ws);
 		auto as = eng.add_system<mce::simulation::actuator_system>();
 		struct random_rotate {
-			glm::vec3 angular_velocity;
+			glm::vec3 angular_velocity{0.0f, 0.0f, 0.0f};
 			random_rotate() {
 				do {
 					angular_velocity = {rnd.random_vec_comp(), rnd.random_vec_comp(), rnd.random_vec_comp()};
@@ -107,7 +107,7 @@ int main(int, char* argv[]) {
 		as->set_movement_pattern("random_rotate", random_rotate());
 		struct orbit {
 			bool initialized = false;
-			glm::vec3 center;
+			glm::vec3 center{0.0f, 0.0f, 0.0f};
 			float radius = 1.0f;
 			float speed = 2.0f;
 			float angle = 0.0f;
