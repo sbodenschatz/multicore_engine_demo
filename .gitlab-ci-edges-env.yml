@@ -102,7 +102,7 @@ gcc-release-build:
         BUILD_TYPE: "Release"
         BUILD_COMPILER_NAME: "gcc"
         BUILD_SANITIZE: "NO"
-    image: $CI_REGISTRY/ci-util/cpp/gcc/release
+    image: $CI_BUILD_IMAGE_BASE/gcc/release
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
 
@@ -113,7 +113,7 @@ clang-release-build:
         BUILD_TYPE: "Release"
         BUILD_COMPILER_NAME: "clang"
         BUILD_SANITIZE: "NO"
-    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    image: $CI_BUILD_IMAGE_BASE/clang/release
     <<: *linux-build-task
     <<: *artifact-spec-build-linux
     
@@ -124,7 +124,7 @@ scan-build:
     - mkdir -p build && cd build
     - cmake -U*_DIR -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Debug -DSTATIC_ANALYSIS_ONLY=YES ..
     - scan-build --status-bugs make -j $[$(grep -c ^processor /proc/cpuinfo)+2] config=debug CC=clang CXX=clang++ mce_demo
-    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    image: $CI_BUILD_IMAGE_BASE/clang/release
     <<: *linux-cache-spec
         
 license-pack-linux:
@@ -133,7 +133,7 @@ license-pack-linux:
     script:
     - multicore_engine/create_license_pack_linux.sh
     - cp "multicore_engine_demo_assets/textures_src/About these PBR files.txt" licenses\linux\pbr_materials.txt
-    image: $CI_REGISTRY/ci-util/cpp/clang/release
+    image: $CI_BUILD_IMAGE_BASE/clang/release
     artifacts:
         name: "mce_${CI_COMMIT_REF_SLUG}_${CI_JOB_ID}_${CI_COMMIT_SHA}_${CI_JOB_NAME}"
         expire_in: 1 day
