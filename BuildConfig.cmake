@@ -8,6 +8,7 @@ include(CustomLTO)
 if(NOT DEFINED BOOST_ROOT)
 	set(BOOST_ROOT ${LIBS_DIR}/Boost)
 endif()
+set(Boost_USE_STATIC_LIBS ON CACHE BOOL "When ON, uses static Boost libraries; when OFF, uses shared Boost libraries")
 find_package(Boost REQUIRED
 		COMPONENTS
 			program_options
