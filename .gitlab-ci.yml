@@ -65,7 +65,7 @@ stages:
     script:
     - cmake -E make_directory build
     - cd build
-    - cmake -U*_DIR -DCMAKE_INSTALL_PREFIX=%BUILD_COMPILER_NAME% -G "Visual Studio 16 2019" -A x64 ..
+    - cmake -U*_DIR -DCMAKE_INSTALL_PREFIX=%BUILD_COMPILER_NAME% -G "Visual Studio 17 2022" -A x64 ..
     - cmake --build . --config %BUILD_TYPE% --target mce_demo -- /m:%BUILD_CONCURRENCY%
     - cmake --build . --config %BUILD_TYPE% --target install-mce-demo -- /m:%BUILD_CONCURRENCY%
     - cd ..
