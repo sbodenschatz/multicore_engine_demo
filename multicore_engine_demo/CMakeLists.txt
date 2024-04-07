@@ -1,4 +1,5 @@
 cmake_minimum_required (VERSION 3.10)
+cmake_policy(VERSION 3.10...3.29)
 
 file(GLOB_RECURSE DEMO_SRC "src/*.cpp")
 file(GLOB_RECURSE DEMO_HEADERS "include/*.hpp")
