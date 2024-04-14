@@ -77,16 +77,15 @@ stages:
     variables:
         GIT_STRATEGY: none
     script:
-    - sha1sum -b gcc/assets/* clang/assets/* msvc/assets/* mingw/assets/* > checksums.txt
+    - sha1sum -b gcc/assets/* clang/assets/* msvc/assets/* > checksums.txt
     - cat checksums.txt | sort
     - mv gcc/assets/ assets/
     - mv gcc/default.cfg default.cfg
     - mv gcc/bin gcc-bin
     - mv clang/bin clang-bin
-    - mv mingw/bin mingw-bin
     - mv msvc/bin msvc-bin    
-    - rm -r clang/assets/ mingw/assets/ msvc/assets/ clang/default.cfg mingw/default.cfg msvc/default.cfg
-    - rmdir gcc clang mingw msvc
+    - rm -r clang/assets/ msvc/assets/ clang/default.cfg msvc/default.cfg
+    - rmdir gcc clang msvc
     image: alpine:latest
     artifacts: &package-artifact-spec
         name: "mce_${CI_COMMIT_REF_SLUG}_${CI_JOB_ID}_${CI_COMMIT_SHA}"
@@ -95,7 +94,6 @@ stages:
         - gcc-bin
         - clang-bin
         - msvc-bin
-        - mingw-bin
         - checksums.txt
         - licenses
 
