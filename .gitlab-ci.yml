@@ -144,7 +144,7 @@ msvc-release-build-tags:
     <<: *msbuild-build-task
     <<: *artifact-spec-build
 
-mingw-release-build:
+.mingw-release-build:
     variables:
         BUILD_CXX_COMPILER: "g++"
         BUILD_C_COMPILER: "gcc"
