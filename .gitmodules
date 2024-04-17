@@ -3,4 +3,4 @@
 	url = ../multicore_engine.git
 [submodule "cmake_helpers"]
 	path = cmake_helpers
-	url = ../cmake_helpers.git
+	url = ../mce_cmake_helpers.git
